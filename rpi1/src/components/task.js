@@ -1,12 +1,13 @@
 import { createElement } from "../framework/render.js";
 
-function createTaskComponentTemplate() {
-  return `<li class="task-item">unit file</li>`;
+function createTaskComponentTemplate(task) {
+  return `<li class="task-item">${task.title}</li>`;
 }
 
 export default class TaskComponent {
-  getTemplate() {
-    return createTaskComponentTemplate();
+  constructor({ task }) {
+    this.task = task;
+    this.element = null;
   }
 
   getElement() {
@@ -19,5 +20,9 @@ export default class TaskComponent {
 
   removeElement() {
     this.element = null;
+  }
+
+  getTemplate() {
+    return createTaskComponentTemplate(this.task);
   }
 }

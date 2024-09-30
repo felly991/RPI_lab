@@ -1,16 +1,17 @@
 import { createElement } from "../framework/render.js";
+import { StatusLabel } from "../consts.js";
 
-function createTaskListComponentTemplate() {
+function createTaskListComponentTemplate(status) {
   return `<li class="task-container-item">
-              <h3 class="title tasks-container-title title-backlog">Корзина</h3>
-              <ul class="task-list-container tasks-container-backlog task-list">
+              <h3 class="title tasks-container-title title-${status}">${StatusLabel[status]}</h3>
+              <ul class="task-list-container tasks-container-${status} task-list">
               </ul>
             </li>`;
 }
 
 export default class TaskListComponent {
-  getTemplate() {
-    return createTaskListComponentTemplate();
+  constructor(status) {
+    this.status = status;
   }
 
   getElement() {
@@ -24,4 +25,9 @@ export default class TaskListComponent {
   removeElement() {
     this.element = null;
   }
+
+  getTemplate() {
+    return createTaskListComponentTemplate(this.status);
+  }
+
 }
