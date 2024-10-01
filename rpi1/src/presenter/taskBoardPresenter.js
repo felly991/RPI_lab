@@ -5,21 +5,29 @@ import { StatusArray } from "../consts.js";
 import { render } from "../framework/render.js";
 
 export default class TasksBoardPresenter {
-  tasksBoardComponent = new TaskAreaComponent();
+  #boardContainer = null;
+  #tasksModel = null;
+
+  #tasksBoardComponent = new TaskAreaComponent();
+
+  #boardTasks = [];
 
   constructor({ boardContainer, tasksModel }) {
-    this.boardContainer = boardContainer;
-    this.tasksModel = tasksModel;
+    this.#boardContainer = boardContainer;
+    this.#tasksModel = tasksModel;
   }
 
   init() {
-    this.boardTasks = [...this.tasksModel.getTasks()];
+    this.#renderBoard();
+    this.#renderTask();
+  }
 
-    render(this.tasksBoardComponent, this.boardContainer);
-    debugger;
+  #renderBoard() {
+    this.#boardTasks = [...this.#tasksModel.tasks];
+    render(this.#tasksBoardComponent, this.#boardContainer);
     for (const status of StatusArray) {
       const tasksListComponent = new TaskListComponent(status);
-      render(tasksListComponent, this.tasksBoardComponent.getElement());
+      render(tasksListComponent, this.#tasksBoardComponent.getElement());
 
       const tasksForStatus = this.boardTasks.filter(
         (task) => task.status === status
@@ -35,4 +43,11 @@ export default class TasksBoardPresenter {
       }
     }
   }
+
+  #renderTask(task, container) {
+    const taskComponent = new TaskComponent({ task });
+
+    render(taskComponent, container);
+  }
 }
+

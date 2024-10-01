@@ -1,24 +1,12 @@
-import { createElement } from "../framework/render.js";
+import { AbstractComponent } from "../framework/view/abstractComponent.js";
 
 function createTaskAreaComponentTemplate() {
   return `<ul class="task-main-container-list task-list">
           </ul>`;
 }
 
-export default class TaskAreaComponent {
-  getTemplate() {
+export default class extends AbstractComponent {
+  get template() {
     return createTaskAreaComponentTemplate();
-  }
-
-  getElement() {
-    if (!this.element) {
-      this.element = createElement(this.getTemplate());
-    }
-
-    return this.element;
-  }
-
-  removeElement() {
-    this.element = null;
   }
 }
