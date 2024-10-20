@@ -14,4 +14,3 @@ export default class TaskComponent extends AbstractComponent {
     return createTaskComponentTemplate(this.task);
   }
 }
-

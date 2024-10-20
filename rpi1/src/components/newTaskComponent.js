@@ -5,13 +5,15 @@ function createNewTaskComponentTemplate() {
                     Новая задача
                 </h3>
                 <form action="#" class="new-task-container-form">
-            <input
-              class="new-task-container-input-holder"
-              type="text"
-              placeholder="Название задачи..."
-            />
-            <button class="new-task-container-add-button btn">Добавить</button>
-          </form> </div>`;
+          <input
+          class="new-task-container-input-holder"
+          type="text"
+          placeholder="Название задачи..."
+          required
+        />
+        <button type="submit" class="new-task-container-add-button btn">+ Добавить</button>
+      </form>
+    </div>`;
 }
 
 export default class NewTaskComponent extends AbstractComponent {

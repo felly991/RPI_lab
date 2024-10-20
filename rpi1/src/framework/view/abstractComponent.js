@@ -2,6 +2,8 @@ import { createElement } from "../render.js";
 
 export class AbstractComponent {
   #element = null;
+  _callback = {};
+  
   constructor() {
     if (new.target === AbstractComponent) {
       throw new Error(

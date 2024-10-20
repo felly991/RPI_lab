@@ -11,3 +11,4 @@ export const tasks = [
   { id: 8, title: "Ответы на письма", status: Status.BASKET },
   { id: 9, title: "Собрание команды", status: Status.BACKLOG },
 ];
+
