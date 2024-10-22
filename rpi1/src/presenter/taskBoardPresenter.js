@@ -56,8 +56,13 @@ export default class TasksBoardPresenter {
     const nonBasketStatuses = StatusArray.filter(
       (status) => status !== Status.BASKET
     );
+
     for (const status of nonBasketStatuses) {
-      const tasksListComponent = new TaskListComponent(status);
+      const tasksListComponent = new TaskListComponent({
+        status,
+        onTaskDrop: this.#handleTaskDrop.bind(this),
+      });
+      console.log(status);
       tasksListComponent.element.setAttribute("data-status", status);
       render(tasksListComponent, this.#tasksBoardComponent.element);
 
@@ -74,7 +79,10 @@ export default class TasksBoardPresenter {
 
   #renderBasket() {
     const status = Status.BASKET;
-    const tasksListComponent = new TaskListComponent(status);
+    const tasksListComponent = new TaskListComponent({
+      status,
+      onTaskDrop: this.#handleTaskDrop.bind(this),
+    });
     tasksListComponent.element.setAttribute("data-status", status);
     render(tasksListComponent, this.#tasksBoardComponent.element);
 
@@ -90,12 +98,16 @@ export default class TasksBoardPresenter {
     const isDisabled = tasksForStatus.length === 0;
 
     this.#clearButtonComponent = new ClearButtonComponent(isDisabled);
-    this.#clearButtonComponent.setClickHandler(this.#handleResetButtonClick);
+    this.#clearButtonComponent.setClickHandler(this.#handleClearButtonClick);
     render(this.#clearButtonComponent, tasksListComponent.element);
   }
 
-  #handleResetButtonClick = () => {
+  #handleClearButtonClick = () => {
     this.#tasksModel.removeTasksByStatus(Status.BASKET);
+  };
+
+  #handleTaskDrop = (taskId, newStatus) => {
+    this.#tasksModel.updateTaskStatus(taskId, newStatus);
   };
 }
 
