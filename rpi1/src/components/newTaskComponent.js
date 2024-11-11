@@ -17,7 +17,31 @@ function createNewTaskComponentTemplate() {
 }
 
 export default class NewTaskComponent extends AbstractComponent {
+  #handleFormSubmit = null;
+
+  constructor(handleFormSubmit) {
+    super();
+    this.#handleFormSubmit = handleFormSubmit;
+    this._setInnerHandlers();
+  }
+
   get template() {
     return createNewTaskComponentTemplate();
+  }
+
+  _setInnerHandlers() {
+    this.element
+      .querySelector(".new-task-container-form")
+      .addEventListener("submit", this.#formSubmitHandler.bind(this));
+  }
+
+  #formSubmitHandler(evt) {
+    evt.preventDefault();
+    const inputElement = this.element.querySelector(".new-task-container-input-holder");
+    const taskTitle = inputElement.value.trim();
+    if (taskTitle) {
+      this.#handleFormSubmit(taskTitle);
+      inputElement.value = "";
+    }
   }
 }

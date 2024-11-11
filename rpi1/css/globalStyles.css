@@ -216,3 +216,12 @@
     color: #000000;
     background-color: #e0fcff;
   }
+
+  .loader {
+    font-size: 24px;
+    color: #333;
+    padding: 20px;
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    border-radius: 5px;
+  }
