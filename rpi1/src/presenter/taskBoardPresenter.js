@@ -130,7 +130,7 @@ export default class TasksBoardPresenter {
     const tasksForStatus = this.#taskPresenter.getTasksByStatus(status);
 
     const tasksListElement =
-      tasksListComponent.element.querySelector(".tasks__list");
+      tasksListComponent.element.querySelector(".task-list-container");
 
     if (tasksForStatus.length === 0) {
       const noTaskComponent = new NoTaskComponent();
